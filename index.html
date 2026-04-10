@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agustín Raminger — Frontend Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0B1120;
+      --navy2:   #111827;
+      --slate:   #1E2A3A;
+      --accent:  #C9A84C;
+      --accent2: #E8C97A;
+      --text:    #E8E6E1;
+      --muted:   #8A97A8;
+      --border:  rgba(201,168,76,0.2);
+      --card:    rgba(30,42,58,0.6);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 6vw;
+      background: rgba(11,17,32,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    header {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 0 6vw;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 80px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+    h1 span { color: var(--accent); }
+    .hero-desc {
+      font-size: 1.05rem; font-weight: 300;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 13px 28px;
+      font-size: 0.88rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent); color: var(--navy);
+      border: 1px solid var(--accent);
+    }
+    .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(232,230,225,0.25);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .avatar-frame {
+      width: 340px; height: 340px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--slate);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      position: relative;
+    }
+    .avatar-frame::before {
+      content: '';
+      position: absolute; inset: -8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .avatar-initials {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem; color: var(--accent);
+      line-height: 1;
+    }
+    .avatar-label {
+      font-size: 0.78rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 6vw; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700; margin-bottom: 3rem;
+      color: var(--text);
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--navy2); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .skill-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-item:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .skill-name { font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; }
+    .skill-level {
+      font-size: 0.78rem; color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .skill-bar {
+      height: 2px; background: rgba(255,255,255,0.08);
+      border-radius: 1px; margin-top: 10px;
+    }
+    .skill-fill {
+      height: 100%; background: var(--accent);
+      border-radius: 1px;
+    }
+
+    /* ── PROYECTOS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .project-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 1rem;
+    }
+    .project-icon {
+      width: 44px; height: 44px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .project-links { display: flex; gap: 10px; }
+    .project-links a {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .project-links a:hover { color: var(--accent); }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; margin-bottom: 0.6rem;
+      color: var(--text);
+    }
+    .project-desc {
+      font-size: 0.92rem; color: var(--muted);
+      flex: 1; margin-bottom: 1.25rem;
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 2px; color: var(--muted);
+    }
+
+    /* ── SOBRE MÍ ── */
+    #about { background: var(--navy2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      font-size: 1rem; color: var(--muted);
+      margin-bottom: 1rem; font-weight: 300;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    }
+    .stat-box {
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+    }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 700;
+      color: var(--accent); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.82rem; color: var(--muted);
+      margin-top: 6px; letter-spacing: 0.04em;
+    }
+
+    /* ── CONTACTO ── */
+    .contact-inner {
+      max-width: 600px; margin: 0 auto; text-align: center;
+    }
+    .contact-inner h2 { margin-bottom: 1rem; }
+    .contact-inner p {
+      color: var(--muted); font-size: 1rem;
+      font-weight: 300; margin-bottom: 2.5rem;
+    }
+    .contact-links {
+      display: flex; gap: 1rem;
+      justify-content: center; flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 6vw;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    /* ── ANIMACIONES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.25s; }
+    .delay-3 { animation-delay: 0.4s; }
+    .delay-4 { animation-delay: 0.55s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-grid, .about-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">TN.</a>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Proyectos</a></li>
+      <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header>
+    <div class="hero-grid">
+      <div>
+        <span class="hero-tag fade-up">Frontend Developer</span>
+        <h1 class="fade-up delay-1">
+          Hola, soy<br><span>Agustín</span>
+        </h1>
+        <p class="hero-desc fade-up delay-2">
+          Creo interfaces web modernas, accesibles y de alto rendimiento.
+          Me especializo en transformar diseños en experiencias digitales que impactan.
+        </p>
+        <div class="btn-group fade-up delay-3">
+          <a href="#projects" class="btn btn-primary">Ver proyectos</a>
+          <a href="#contact" class="btn btn-outline">Contactarme</a>
+        </div>
+      </div>
+      <div class="hero-visual fade-up delay-4">
+        <div class="avatar-frame">
+          <div class="avatar-initials">TN</div>
+          <div class="avatar-label">Frontend Developer</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <p class="section-label">Tecnologías</p>
+      <h2>Mis skills</h2>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <div class="skill-name">HTML / CSS</div>
+          <div class="skill-level">Avanzado</div>
+          <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">JavaScript</div>
+          <div class="skill-level">Avanzado</div>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">React</div>
+          <div class="skill-level">Intermedio</div>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">TypeScript</div>
+          <div class="skill-level">Intermedio</div>
+          <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">Git / GitHub</div>
+          <div class="skill-level">Intermedio</div>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">Figma</div>
+          <div class="skill-level">Básico</div>
+          <div class="skill-bar"><div class="skill-fill" style="width:50%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="projects">
+    <div class="section-inner">
+      <p class="section-label">Trabajo</p>
+      <h2>Proyectos destacados</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">🌐</div>
+            <div class="project-links">
+              <a href="#" target="_blank">Demo →</a>
+              <a href="#" target="_blank">GitHub →</a>
+            </div>
+          </div>
+          <h3>Nombre del proyecto</h3>
+          <p class="project-desc">
+            Descripción breve del proyecto. Qué problema resuelve y qué tecnologías usaste para construirlo.
+          </p>
+          <div class="tag-list">
+            <span class="tag">React</span>
+            <span class="tag">CSS</span>
+            <span class="tag">API REST</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">📱</div>
+            <div class="project-links">
+              <a href="#" target="_blank">Demo →</a>
+              <a href="#" target="_blank">GitHub →</a>
+            </div>
+          </div>
+          <h3>Otro proyecto</h3>
+          <p class="project-desc">
+            Descripción breve del proyecto. Contá qué aprendiste construyéndolo y cuál fue el mayor desafío.
+          </p>
+          <div class="tag-list">
+            <span class="tag">JavaScript</span>
+            <span class="tag">HTML</span>
+            <span class="tag">LocalStorage</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">⚡</div>
+            <div class="project-links">
+              <a href="#" target="_blank">Demo →</a>
+              <a href="#" target="_blank">GitHub →</a>
+            </div>
+          </div>
+          <h3>Tercer proyecto</h3>
+          <p class="project-desc">
+            Descripción breve del proyecto. Reemplazá estas tarjetas con tus proyectos reales cuando los tengas.
+          </p>
+          <div class="tag-list">
+            <span class="tag">TypeScript</span>
+            <span class="tag">React</span>
+            <span class="tag">Tailwind</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section id="about">
+    <div class="section-inner">
+      <p class="section-label">Sobre mí</p>
+      <h2>¿Quién soy?</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Soy <strong>Frontend Developer</strong> apasionado por crear experiencias web que combinen funcionalidad con diseño cuidado. Me interesa cada detalle de la interfaz, desde la tipografía hasta el rendimiento.
+          </p>
+          <p>
+            Actualmente estoy <strong>buscando mi primera oportunidad</strong> en el mundo laboral / trabajando en [empresa] y siempre buscando nuevos desafíos y proyectos.
+          </p>
+          <p>
+            Fuera del código me gusta [tu hobbie]. Creo que los mejores productos nacen de equipos curiosos y colaborativos.
+          </p>
+          <a href="#contact" class="btn btn-outline" style="margin-top:1.5rem; display:inline-block;">Trabajemos juntos →</a>
+        </div>
+        <div class="about-stats">
+          <div class="stat-box">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Proyectos completados</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">2+</div>
+            <div class="stat-label">Años de estudio</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Tecnologías dominadas</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Ganas de aprender</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contact">
+    <div class="contact-inner">
+      <p class="section-label">Contacto</p>
+      <h2>¿Hablamos?</h2>
+      <p>Estoy disponible para proyectos freelance, trabajo en equipo o simplemente para conectar con otros devs.</p>
+      <div class="contact-links">
+        <a href="mailto:tu@email.com" class="btn btn-primary">araminger12@gmail.com</a>
+        <a href="https://www.linkedin.com/in/agustin-raminger-a93a17378/?skipRedirect=true" class="btn btn-outline" target="_blank">LinkedIn →</a>
+        <a href="https://www.instagram.com/rraminger/?hl=es-la" class="btn btn-outline" target="_blank">Instagram →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Diseñado y desarrollado por <strong>Agustín</strong> · 2025</p>
+  </footer>
+
+</body>
+</html>
